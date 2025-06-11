@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @page {
+            margin: 0;
+            size: A4;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            color: #333;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            background-color: white;
+        }
+
+        .resume-container {
+            width: 100%;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            box-sizing: border-box;
+        }
+        
+        /* Header styles */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .title {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 12px;
+        }
+        
+        /* Section styles */
+        .section {
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+
+        /* Items */
+        .item {
+            margin-bottom: 12px;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3px;
+        }
+        
+        .item-title {
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+        .item-date {
+            font-size: 12px;
+            text-align: right;
+        }
+        
+        .item-subtitle {
+            font-style: italic;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+        
+        .item-location {
+            font-size: 12px;
+            text-align: right;
+        }
+        
+        .item-description {
+            font-size: 12px;
+            margin-top: 3px;
+        }
+        
+        /* Bullet points */
+        .bullet-points {
+            margin: 5px 0 0 20px;
+            padding-left: 0;
+        }
+        
+        .bullet-points li {
+            font-size: 12px;
+            margin-bottom: 3px;
+            list-style-type: disc;
+        }
+
+        /* Skills */
+        .skills-section {
+            margin-bottom: 15px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .skill-category {
+            margin-bottom: 8px;
+        }
+        
+        .skill-category-title {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+        
+        .skill-list {
+            font-size: 12px;
+        }
+        
+        /* Projects */
+        .project-item {
+            margin-bottom: 10px;
+        }
+        
+        .project-title {
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+        
+        .project-link {
+            font-size: 12px;
+            color: #2a7ae2;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+        
+        .project-tech {
+            font-size: 12px;
+            margin-bottom: 3px;
+            font-weight: normal;
+            text-align: right;
+        }
+        
+        /* Certifications */
+        .certifications-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 0;
+        }
+        
+        .certifications-list li {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        
+        /* Two-column layout */
+        .two-column {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .column {
+            flex: 1;
+        }
+        
+        .left-column {
+            flex: 0 0 30%;
+            background-color: #f5f5f5;
+            padding: 15px;
+        }
+        
+        .right-column {
+            flex: 0 0 70%;
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="name">{{personalInfo.name}}</div>
+            {{#if personalInfo.summary}}
+            <div class="title">{{personalInfo.summary}}</div>
+            {{/if}}
+            <div class="contact-info">
+                {{#if personalInfo.phone}}
+                <span>{{personalInfo.phone}}</span>
+                {{/if}}
+                {{#if personalInfo.email}}
+                <span>{{personalInfo.email}}</span>
+                {{/if}}
+                {{#if personalInfo.location}}
+                <span>{{personalInfo.location}}</span>
+                {{/if}}
+                {{#if personalInfo.website}}
+                <span>{{personalInfo.website}}</span>
+                {{/if}}
+                {{#if personalInfo.linkedin}}
+                <span>{{personalInfo.linkedin}}</span>
+                {{/if}}
+                {{#if personalInfo.github}}
+                <span>{{personalInfo.github}}</span>
+                {{/if}}
+            </div>
+        </div>
+        
+        <!-- Education Section -->
+        {{#if education.length}}
+        <div class="section">
+            <div class="section-title">Education</div>
+            {{#each education}}
+            <div class="item">
+                <div class="item-header">
+                    <div class="item-title">{{this.institution}}</div>
+                    <div class="item-location">{{this.location}}</div>
+                </div>
+                <div class="item-header">
+                    <div class="item-subtitle">{{this.degree}}</div>
+                    <div class="item-date">{{this.startDate}} – {{this.endDate}}</div>
+                </div>
+                {{#if this.description}}
+                <div class="item-description">{{this.description}}</div>
+                {{/if}}
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+        
+        <!-- Employment Section -->
+        {{#if experience.length}}
+        <div class="section">
+            <div class="section-title">Employment</div>
+            {{#each experience}}
+            <div class="item">
+                <div class="item-header">
+                    <div class="item-title">{{this.company}}</div>
+                    <div class="item-location">{{this.location}}</div>
+                </div>
+                <div class="item-header">
+                    <div class="item-subtitle">{{this.title}}</div>
+                    <div class="item-date">{{this.startDate}} – {{#if this.current}}Present{{else}}{{this.endDate}}{{/if}}</div>
+                </div>
+                {{#if this.description}}
+                <ul class="bullet-points">
+                    <li>{{this.description}}</li>
+                </ul>
+                {{/if}}
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+        
+        <!-- Skills Section -->
+        {{#if skills.length}}
+        <div class="section">
+            <div class="section-title">Skills</div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-category-title">Technical Skills</div>
+                    <div class="skill-list">
+                        {{#each skills}}
+                        {{this.name}}{{#unless @last}}, {{/unless}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+        
+        <!-- Projects Section -->
+        {{#if projects.length}}
+        <div class="section">
+            <div class="section-title">Projects</div>
+            {{#each projects}}
+            <div class="project-item">
+                <div class="item-header">
+                    <div class="project-title">{{this.name}}</div>
+                    <div class="project-tech">{{#each this.technologies}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</div>
+                </div>
+                <ul class="bullet-points">
+                    <li>{{this.description}}</li>
+                </ul>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+        
+        <!-- Certifications Section -->
+        {{#if certifications.length}}
+        <div class="section">
+            <div class="section-title">Certifications</div>
+            <ul class="certifications-list">
+                {{#each certifications}}
+                <li>{{this.name}} ({{this.issuer}}){{#if this.date}} - {{this.date}}{{/if}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+        
+        <!-- Languages Section -->
+        {{#if languages.length}}
+        <div class="section">
+            <div class="section-title">Languages</div>
+            <div class="skill-list">
+                {{#each languages}}
+                {{this.name}} ({{this.proficiency}}){{#unless @last}}, {{/unless}}
+                {{/each}}
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</body>
+</html>
